@@ -1,7 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
-const path = require('path')
+const path = require('path');
+const cors = require('cors');
 const PORT = process.env.PORT || 3000;
 
 app.use(express.static('public'));
@@ -9,6 +10,13 @@ app.use(express.static('public'));
 
 const connectDB = require('./config/db');
 connectDB();
+
+//Cors
+const corsOptions = {
+    origin: process.env.ALLOWED_CLIENTS.split(',')
+
+}
+app.use(cors(corsOptions))
 
 app.use(express.json());
 
